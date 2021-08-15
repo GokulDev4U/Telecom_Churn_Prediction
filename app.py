@@ -2,6 +2,7 @@
 # coding: utf-8
 
 import pandas as pd
+from flask_cors import cross_origin
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier 
 from sklearn import metrics
@@ -19,7 +20,8 @@ def loadPage():
 	return render_template('home.html', query="")
 
 
-@app.route("/", methods=['POST'])
+@app.route("/",methods=['GET', 'POST'])
+@cross_origin()
 def predict():
     
     '''
@@ -129,5 +131,8 @@ def predict():
                            query18 = request.form['query18'], 
                            query19 = request.form['query19'])
     
-app.run()
+# app.run()
+
+if __name__=='__main__':
+	app.run(debug=True)
 
